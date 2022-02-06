@@ -57,6 +57,8 @@ As far as i know there is no reason why halogen and underlying virtual dom imple
 
 The solution chosen here works because halogen components take the place of "widget" in the virtual dom implementation. Each widget gets to control it's own life cycle and thus can perform actions on initialization. You can imagine the sequence of events going like:
 
-```
-Parent start render -> child start render -> child actions (initialize) -> parent render complete -> parent actions (initialize)
-```
+1. Parent start render
+2. child start render
+3. child actions (initialize)
+4. parent render complete
+5. parent actions (initialize)
