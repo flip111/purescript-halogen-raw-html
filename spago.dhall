@@ -12,13 +12,13 @@ to generate this file without the comments in this block.
 -}
 { name = "halogen-raw-html"
 , dependencies =
-  [ "console"
-  , "const"
+  [ "const"
   , "effect"
   , "halogen"
   , "maybe"
   , "prelude"
   , "psci-support"
+  , "typelevel-prelude"
   , "web-dom"
   , "web-html"
   ]
