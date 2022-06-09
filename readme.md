@@ -35,13 +35,22 @@ component = H.mkComponent
   , eval: H.mkEval $ H.defaultEval { handleAction = \_ -> pure unit }
   }
 
-type CustomChildSlotsA = ( custom1 :: H.Slot (Const Void) Unit Unit, custom2 :: H.Slot (Const Void) Unit Unit )
-type CustomChildSlotsB = ( custom2 :: H.Slot (Const Void) Unit Unit, custom3 :: H.Slot (Const Void) Unit Unit )
+-- This type does not work because it is not open for extension !
+-- type CustomChildSlotsDoesNotWork = ( broken :: H.Slot (Const Void) Unit Unit )
+
+-- Some examples of how the Row types can be combined
+type CustomChildSlotsA r = ( custom1 :: H.Slot (Const Void) Unit Unit | r )
+type CustomChildSlotsB r = ( custom2 :: H.Slot (Const Void) Unit Unit, custom3 :: H.Slot (Const Void) Unit Unit | r )
+type CombinedChildSlots r = (CustomChildSlotsA + CustomChildSlotsB + r)
 
 -- H.ComponentHTML action slots m ~ HH.HTML (H.ComponentSlot slots m action) action
 template :: forall action m. MonadEffect m => H.ComponentHTML action (CustomChildSlotsA + CustomChildSlotsB + Raw.Slot Unit + ()) m
 template = HH.div [ Raw.raw "<b>hello world</b>" ]
 ```
+
+More information on combining row types:
+* https://github.com/purescript/documentation/blob/master/language/Types.md#rows
+* https://pursuit.purescript.org/packages/purescript-typelevel-prelude/6.0.0/docs/Type.Row#t:type%20(+)
 
 ## History
 Related issue: https://github.com/purescript-halogen/purescript-halogen/issues/324
