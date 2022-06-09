@@ -1,6 +1,6 @@
 "use strict";
 
-exports.replaceElement = function(element) {
+export const replaceElement = function(element) {
   return function (html) {
     return function() {
       // used: https://stackoverflow.com/a/35385518/1833322
